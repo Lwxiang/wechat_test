@@ -14,15 +14,10 @@ def checker(request):
         timestamp = request.GET.get('timestamp')
         nonce = request.GET.get('nonce')
         echostr = request.GET.get('echostr')
-        que = []
-        que.append(timestamp)
-        que.append(nonce)
-        que.append(echostr)
-        que = sorted(que)
-        sign = ''
-        for s in que:
-            sign += s
-        sign = hashlib.sha1(sign)
+        que = [token, timestamp, nonce]
+        que.sort()
+        sign = '%s%s%s' % tuple(que)
+        sign = hashlib.sha1(sign).hexdigest()
         if signature == sign:
             return HttpResponse(echostr)
         else:
