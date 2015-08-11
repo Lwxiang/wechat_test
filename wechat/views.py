@@ -32,5 +32,9 @@ def checker(request):
         if message.type == 'text':
             if message.content == u'王奕昉':
                 response = wechat.response_text(u'林先生爱你么么哒')
+            elif message.content == u'林炜翔':
+                response = wechat.response_text(u'←就是我，请问找我有什么事嘛')
+            else:
+                response = wechat.response_text(u'输入你的名字 或者我的名字')
 
         return HttpResponse(response)
