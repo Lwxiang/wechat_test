@@ -39,4 +39,4 @@ def checker(request):
             except Restaurant.DoesNotExist:
                 response = wechat.response_text(u'没有这家店')
 
-        return HttpResponse(response)
+        return response
