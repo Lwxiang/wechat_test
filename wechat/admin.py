@@ -1,3 +1,12 @@
-from django.contrib import admin
+# coding=utf8
 
-# Register your models here.
+from django.contrib import admin
+from models import Restaurant
+
+
+class RestaurantAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'address', 'unique', 'tel')
+    ordering = ('id',)
+
+
+admin.site.register(Restaurant, RestaurantAdmin)

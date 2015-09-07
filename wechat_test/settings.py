@@ -84,3 +84,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 token = 'lwxiang'
+
+grant_type = 'client_credential'
+
+appID = 'wxc7108bc6b66166f9'
+
+appSecret = '51a36dcb431d565e61eb7170e4eb24ab'
+

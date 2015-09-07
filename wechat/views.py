@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from wechat_sdk import WechatBasic
 
 from wechat_test.settings import token
+from models import Restaurant
+from lib import RestaurantTemplate
 
 
 def checker(request):
@@ -30,11 +32,11 @@ def checker(request):
 
         response = None
         if message.type == 'text':
-            if message.content == u'王奕昉':
-                response = wechat.response_text(u'林先生爱你么么哒')
-            elif message.content == u'林炜翔':
-                response = wechat.response_text(u'←就是我，请问找我有什么事嘛')
-            else:
-                response = wechat.response_text(u'输入你的名字 或者我的名字')
+            try:
+                restaurant = Restaurant.objects.get(name=message.content)
+                restmp = RestaurantTemplate(restaurant=restaurant)
+                response = restmp.response()
+            except:
+                response = u'没有这家店'
 
         return HttpResponse(response)
