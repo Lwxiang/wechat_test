@@ -34,9 +34,9 @@ def checker(request):
         if message.type == 'text':
             try:
                 restaurant = Restaurant.objects.get(name=message.content)
-                restmp = RestaurantTemplate(restaurant=restaurant)
-                response = restmp.response()
-            except:
-                response = u'没有这家店'
+                restaurant_template = RestaurantTemplate(restaurant=restaurant)
+                response = wechat.response_text(restaurant_template.response())
+            except Restaurant.DoesNotExist:
+                response = wechat.response_text(u'没有这家店')
 
         return HttpResponse(response)
