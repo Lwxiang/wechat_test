@@ -28,20 +28,23 @@ class RestaurantTemplate:
 
 
 def fresh_access_token():
-    access_token = AccessToken.objects.get_or_create(id=1)
+    try:
+        access_token = AccessToken.objects.get(id=1)
+    except AccessToken.DoesNotExist:
+        access_token = AccessToken()
     url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=%s&appid=%s&secret=%s" \
           % (grant_type, appID, appSecret)
     r = requests.get(url)
     message = r.json()
     access_token.token = message['access_token']
-    access_token.expires_in = message['expires_in']
+    access_token.expires_in = int(message['expires_in'])
     access_token.save()
 
 
 def get_access_token():
     try:
         access_token = AccessToken.objects.get(id=1)
-        if (datetime.datetime.now() - access_token.born_time).seconds >= access_token.expires_in:
+        if (datetime.datetime.now() - access_token.born_time.replace(tzinfo=None)).seconds >= access_token.expires_in:
             fresh_access_token()
             access_token = AccessToken.objects.get(id=1)
     except AccessToken.DoesNotExist:
