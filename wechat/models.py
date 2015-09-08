@@ -10,7 +10,7 @@ class AccessToken(models.Model):
 
 
 class Restaurant(models.Model):
-    name = models.CharField(u'店名', max_length=100)
+    name = models.CharField(u'店名', max_length=100, unique=True)
     address = models.CharField(u'地址', max_length=2000, blank=True, null=True)
     unique = models.CharField(u'特色', max_length=2000, blank=True, null=True)
     tel = models.CharField(u'电话', max_length=100, blank=True, null=True)

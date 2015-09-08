@@ -37,6 +37,24 @@ def checker(request):
                 restaurant_template = RestaurantTemplate(restaurant=restaurant)
                 response = wechat.response_text(restaurant_template.response())
             except Restaurant.DoesNotExist:
-                response = wechat.response_text(u'没有这家店')
+                res_list = []
+                ful_name = message.content
+                if len(ful_name) in range(2, 7):
+                    for i in range(len(ful_name)-2, 0, -1):
+                        for j in range(0, len(ful_name)-i+1):
+                            part_name = ful_name[j: i+j]
+                            try:
+                                restaurant = Restaurant.objects.get(name=part_name)
+                                restaurant_template= RestaurantTemplate(restaurant=restaurant)
+                                res_list.append(restaurant_template.response())
+                            except Restaurant.DoesNotExist:
+                                continue
+                if res_list:
+                    back_info = u'没有找到完全符合的店名哦～亲爱的你要找的是不是这些店铺'
+                    for k in range(1, len(res_list)+1):
+                        back_info = "%s\n%d: %s" % (back_info, k, res_list[k])
+                    response = wechat.response_text(back_info)
+                else:
+                    response = wechat.response_text(u'没有这家店')
 
         return response
