@@ -8,7 +8,11 @@ from wechat_sdk import WechatBasic
 
 from wechat_test.settings import token
 from models import Restaurant
-from lib import RestaurantTemplate
+from lib import RestaurantTemplate, get_access_token
+
+
+def get(request):
+    return HttpResponse(get_access_token())
 
 
 def checker(request):

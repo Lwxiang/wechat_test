@@ -1,7 +1,8 @@
 # coding=utf8
 
+import datetime
+
 import requests
-import json
 
 from wechat_test.settings import grant_type, appID, appSecret
 from models import AccessToken
@@ -38,7 +39,14 @@ def fresh_access_token():
 
 
 def get_access_token():
-    access_token = AccessToken.objects.get(id=1)
+    try:
+        access_token = AccessToken.objects.get(id=1)
+        if (datetime.datetime.now() - access_token.born_time).seconds >= access_token.expires_in:
+            fresh_access_token()
+            access_token = AccessToken.objects.get(id=1)
+    except AccessToken.DoesNotExist:
+        fresh_access_token()
+        return get_access_token()
     return access_token.token
 
 

@@ -5,7 +5,7 @@ from django.db import models
 
 class AccessToken(models.Model):
     token = models.CharField(u'access_token', max_length=1000)
-    born_time = models.TimeField(auto_now_add=True)
+    born_time = models.DateTimeField(auto_now_add=True)
     expires_in = models.IntegerField(u'有效时间')
 
 

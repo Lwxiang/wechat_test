@@ -6,5 +6,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'wechat_test.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'wechat.views.checker'),
+    url(r'^access/', 'wechat.view.get'),
     url(r'^admin/', include(admin.site.urls)),
 )
