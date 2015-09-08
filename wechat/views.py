@@ -39,15 +39,15 @@ def checker(request):
             except Restaurant.DoesNotExist:
                 res_list = []
                 ful_name = message.content
-                if len(ful_name) in range(2, 7):
-                    for i in range(len(ful_name)-1, 1, -1):
+                if len(ful_name) in range(1, 7):
+                    for i in range(len(ful_name)-1, 0, -1):
                         for j in range(0, len(ful_name)-i+1):
                             part_name = ful_name[j: i+j]
                             try:
                                 restaurants = Restaurant.objects.filter(name__contains=part_name)
                                 for restaurant in restaurants:
                                     if not(restaurant.name in res_list):
-                                        restaurant.append(restaurant.name)
+                                        res_list.append(restaurant.name)
                             except Restaurant.DoesNotExist:
                                 continue
                 if res_list:
