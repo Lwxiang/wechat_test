@@ -51,7 +51,7 @@ def checker(request):
                                 continue
                 if res_list:
                     back_info = u'没有找到完全符合的店名哦～亲爱的你要找的是不是这些店铺'
-                    for k in range(1, len(res_list)+1):
+                    for k in range(0, len(res_list)):
                         back_info = "%s\n%d: %s" % (back_info, k, res_list[k])
                     response = wechat.response_text(back_info)
                 else:
