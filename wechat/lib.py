@@ -20,9 +20,9 @@ class RestaurantTemplate:
         if self.address:
             s = s + u'地址: ' + self.address + '\n'
         if self.unique:
-            s = s + u'地址: ' + self.unique + '\n'
+            s = s + u'特色: ' + self.unique + '\n'
         if self.tel:
-            s = s + u'地址: ' + self.tel
+            s = s + u'电话: ' + self.tel
         return s
 
 
