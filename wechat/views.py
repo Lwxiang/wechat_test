@@ -40,7 +40,7 @@ def checker(request):
                 res_list = []
                 ful_name = message.content
                 if len(ful_name) in range(1, 7):
-                    for i in range(len(ful_name)-1, 0, -1):
+                    for i in range(len(ful_name), 0, -1):
                         for j in range(0, len(ful_name)-i+1):
                             part_name = ful_name[j: i+j]
                             try:
