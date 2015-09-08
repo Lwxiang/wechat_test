@@ -46,7 +46,7 @@ def checker(request):
                             try:
                                 restaurants = Restaurant.objects.filter(name__contains=part_name)
                                 for restaurant in restaurants:
-                                    if not(restaurant in res_list):
+                                    if not(restaurant.name in res_list):
                                         restaurant.append(restaurant.name)
                             except Restaurant.DoesNotExist:
                                 continue
