@@ -44,9 +44,10 @@ def checker(request):
                         for j in range(0, len(ful_name)-i+1):
                             part_name = ful_name[j: i+j]
                             try:
-                                restaurants = Restaurant.objects.filter(name__contains=part_name).distinct()
+                                restaurants = Restaurant.objects.filter(name__contains=part_name)
                                 for restaurant in restaurants:
-                                    res_list.append(restaurant.name)
+                                    if not(restaurant in res_list):
+                                        restaurant.append(restaurant.name)
                             except Restaurant.DoesNotExist:
                                 continue
                 if res_list:
