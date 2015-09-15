@@ -1,7 +1,7 @@
 # coding=utf8
 
 from django.contrib import admin
-from models import Restaurant, AccessToken
+from models import Restaurant, AccessToken, User
 
 
 class AccessTokenAdmin(admin.ModelAdmin):
@@ -13,5 +13,10 @@ class RestaurantAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'openid', 'remark', 'status')
+
+
 admin.site.register(AccessToken, AccessTokenAdmin)
 admin.site.register(Restaurant, RestaurantAdmin)
+admin.site.register(User, UserAdmin)
