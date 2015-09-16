@@ -53,20 +53,23 @@ def checker(request):
             if user.status == 'MASTER':
                 if check_user_enter(message.content, 'NAME_INFO'):
                     user.status = 'NAME_INFO'
+                    user.save()
                     response = wechat.response_text(ENTER_NAME_RESPONSE)
                 elif check_user_enter(message.content, 'LCT_INFO'):
                     user.status = 'LCT_INFO'
+                    user.save()
                     response = wechat.response_text(ENTER_LCT_RESPONSE)
                 elif check_user_enter(message.content, 'DISC_INFO'):
                     user.status = 'DISC_INFO'
+                    user.save()
                     response = wechat.response_text(ENTER_DISC_RESPONSE)
                 else:
                     response = wechat.response_text(CHOOSE_FUNC_RESPONSE)
-                user.save()
 
             elif user.status == 'NAME_INFO' or user.status == 'DISC_INFO':
                 if message.content == u'退出':
                     user.status = 'MASTER'
+                    user.save()
                     response = wechat.response_text(CHOOSE_FUNC_RESPONSE)
                 else:
                     try:
@@ -89,8 +92,8 @@ def checker(request):
                                                 user.res_list += ',' + restaurant.name
                                     except Restaurant.DoesNotExist:
                                         continue
+                        user.save()
                         if res_list:
-                            user.save()
                             back_info = RES_LIST_RESPONSE
                             for k in range(0, len(res_list)):
                                 back_info = "%s\n%d: %s" % (back_info, k, res_list[k])
