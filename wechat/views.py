@@ -62,6 +62,7 @@ def checker(request):
                     response = wechat.response_text(ENTER_DISC_RESPONSE)
                 else:
                     response = wechat.response_text(CHOOSE_FUNC_RESPONSE)
+                user.save()
 
             elif user.status == 'NAME_INFO' or user.status == 'DISC_INFO':
                 if message.content == u'退出':
