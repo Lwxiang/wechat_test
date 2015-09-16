@@ -44,8 +44,11 @@ def checker(request):
 
         # 获取用户openid
         openid = message.source
-        user = User.objects.get_or_create(openid=openid)
-        user.save()
+        try:
+            user = User.objects.get(openid=openid)
+        except User.DoesNotExist:
+            user = User(openid=openid)
+            user.save()
 
         response = None
         if message.type == 'text':
