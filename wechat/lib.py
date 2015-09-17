@@ -83,7 +83,7 @@ def name_searcher(ful_name, user):
                     for restaurant in restaurants:
                         if not(restaurant.name in res_list):
                             res_list.append(restaurant.name)
-                            user.res_list += ',' + restaurant.name
+                            user.res_list += ',' + restaurant.id
                 except Restaurant.DoesNotExist:
                     continue
     user.save()
@@ -106,3 +106,5 @@ RES_LIST_RESPONSE = u'没有找到完全符合的店名（＞д＜）亲爱的�
 RES_NOT_FOUND_RESPONSE = u'没有这家店'
 
 LCT_NOT_FOUND_RESPONSE = u'菌菌也找不到这附近的店铺啦o(╥﹏╥)o 要不要试试其他地点呢'
+
+NAME_CHOOSE_ERROR_RESPONSE = u'菌菌还在等你选择上述的店铺哟，回复“退出”回到查找店名～'

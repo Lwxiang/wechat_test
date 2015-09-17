@@ -10,7 +10,7 @@ from wechat_test.settings import token
 from models import Restaurant, User
 from lib import RestaurantTemplate, get_access_token, check_user_enter, name_searcher
 from lib import CHOOSE_FUNC_RESPONSE, ENTER_NAME_RESPONSE, ENTER_LCT_RESPONSE, ENTER_DISC_RESPONSE, \
-    RES_LIST_RESPONSE, RES_NOT_FOUND_RESPONSE, LCT_NOT_FOUND_RESPONSE
+    RES_LIST_RESPONSE, RES_NOT_FOUND_RESPONSE, LCT_NOT_FOUND_RESPONSE, NAME_CHOOSE_ERROR_RESPONSE
 
 
 def get(request):
@@ -93,6 +93,11 @@ def checker(request):
                             if user.status == 'NAME_INFO':
                                 user.status = 'NAME_CHOOSE'
                                 user.save()
+
+                            else:
+                                user.status == 'DISC_CHOOSE'
+                                user.save()
+
                             back_info = RES_LIST_RESPONSE
                             for k in range(0, len(res_list)):
                                 back_info = "%s\n%d: %s" % (back_info, k, res_list[k])
@@ -109,5 +114,19 @@ def checker(request):
 
                 else:
                     response = wechat.response_text(LCT_NOT_FOUND_RESPONSE)
+
+            elif user.status == 'NAME_CHOOSE':
+                res_list = user.res_list.split(',')
+                try:
+                    index = int(message.content)
+                    if not (index in range(1, len(res_list))):
+                        raise ValueError
+
+                    restaurant = Restaurant.objects.get(id=int(res_list[index]))
+                    restaurant_template = RestaurantTemplate(restaurant=restaurant)
+                    response = wechat.response_text(restaurant_template.response())
+
+                except ValueError:
+                    response = wechat.response_text(NAME_CHOOSE_ERROR_RESPONSE)
 
         return HttpResponse(response)
