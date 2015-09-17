@@ -5,7 +5,7 @@ import datetime
 import requests
 
 from wechat_test.settings import grant_type, appID, appSecret
-from models import AccessToken
+from models import AccessToken, Restaurant
 
 
 class RestaurantTemplate:
@@ -69,6 +69,25 @@ def check_user_enter(content, string):
             return True
         else:
             return False
+
+
+def name_searcher(ful_name, user):
+    res_list = []
+    user.res_list = []
+    if len(ful_name) in range(1, 7):
+        for i in range(len(ful_name), 0, -1):
+            for j in range(0, len(ful_name)-i+1):
+                part_name = ful_name[j: i+j]
+                try:
+                    restaurants = Restaurant.objects.filter(name__contains=part_name)
+                    for restaurant in restaurants:
+                        if not(restaurant.name in res_list):
+                            res_list.append(restaurant.name)
+                            user.res_list += ',' + restaurant.name
+                except Restaurant.DoesNotExist:
+                    continue
+    user.save()
+    return res_list
 
 
 CHOOSE_FUNC_RESPONSE = u'嗨～欢迎使用吃乎～菌菌提醒你——\n' +\
