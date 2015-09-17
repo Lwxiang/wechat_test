@@ -10,7 +10,7 @@ from wechat_test.settings import token
 from models import Restaurant, User
 from lib import RestaurantTemplate, get_access_token, check_user_enter
 from lib import CHOOSE_FUNC_RESPONSE, ENTER_NAME_RESPONSE, ENTER_LCT_RESPONSE, ENTER_DISC_RESPONSE, \
-    RES_LIST_RESPONSE, RES_NOT_FOUND_RESPONSE
+    RES_LIST_RESPONSE, RES_NOT_FOUND_RESPONSE, LCT_NOT_FOUND_RESPONSE
 
 
 def get(request):
@@ -103,5 +103,12 @@ def checker(request):
                             response = wechat.response_text(back_info)
                         else:
                             response = wechat.response_text(RES_NOT_FOUND_RESPONSE)
+            elif user.status == 'LCT_INFO':
+                if message.content == u'退出':
+                    user.status = 'MASTER'
+                    user.save()
+                    response = wechat.response_text(CHOOSE_FUNC_RESPONSE)
+                else:
+                    response = wechat.response_text(LCT_NOT_FOUND_RESPONSE)
 
         return HttpResponse(response)

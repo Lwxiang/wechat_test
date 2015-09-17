@@ -85,3 +85,5 @@ ENTER_DISC_RESPONSE = u'回复店名（如“汉堡王”）就能获取店铺�
 RES_LIST_RESPONSE = u'没有找到完全符合的店名（＞д＜）亲爱的你要找的是不是这些店铺'
 
 RES_NOT_FOUND_RESPONSE = u'没有这家店'
+
+LCT_NOT_FOUND_RESPONSE = u'菌菌也找不到这附近的店铺啦o(╥﹏╥)o 要不要试试其他地点呢'
