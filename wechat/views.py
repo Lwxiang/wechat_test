@@ -87,7 +87,8 @@ def checker(request):
                         response = wechat.response_text(restaurant_template.response())
 
                     except Restaurant.DoesNotExist:
-                        res_list = name_searcher(message.content, user)
+                        res_list, user.res_list = name_searcher(message.content)
+                        user.save()
 
                         if res_list:
                             if user.status == 'NAME_INFO':
