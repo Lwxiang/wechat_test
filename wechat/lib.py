@@ -73,7 +73,7 @@ def check_user_enter(content, string):
 
 def name_searcher(ful_name):
     res_list = []
-    user_res_list = []
+    user_res_list = ''
     if len(ful_name) in range(1, 7):
         for i in range(len(ful_name), 0, -1):
             for j in range(0, len(ful_name)-i+1):
