@@ -117,17 +117,23 @@ def checker(request):
                     response = wechat.response_text(LCT_NOT_FOUND_RESPONSE)
 
             elif user.status == 'NAME_CHOOSE':
-                res_list = user.res_list.split(',')
-                try:
-                    index = int(message.content)
-                    if not (index in range(1, len(res_list))):
-                        raise ValueError
+                if message.content == u'退出':
+                    user.status = 'NAME_INFO'
+                    user.save()
+                    response = wechat.response_text(ENTER_NAME_RESPONSE)
 
-                    restaurant = Restaurant.objects.get(id=int(res_list[index]))
-                    restaurant_template = RestaurantTemplate(restaurant=restaurant)
-                    response = wechat.response_text(restaurant_template.response())
+                else:
+                    res_list = user.res_list.split(',')
+                    try:
+                        index = int(message.content)
+                        if not (index in range(1, len(res_list))):
+                            raise ValueError
 
-                except ValueError:
-                    response = wechat.response_text(NAME_CHOOSE_ERROR_RESPONSE)
+                        restaurant = Restaurant.objects.get(id=int(res_list[index]))
+                        restaurant_template = RestaurantTemplate(restaurant=restaurant)
+                        response = wechat.response_text(restaurant_template.response())
+
+                    except ValueError:
+                        response = wechat.response_text(NAME_CHOOSE_ERROR_RESPONSE)
 
         return HttpResponse(response)
