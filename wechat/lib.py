@@ -83,7 +83,7 @@ def name_searcher(ful_name):
                     for restaurant in restaurants:
                         if not(restaurant.name in res_list):
                             res_list.append(restaurant.name)
-                            user_res_list += ',' + restaurant.id
+                            user_res_list += ',' + str(restaurant.id)
                 except Restaurant.DoesNotExist:
                     continue
     return res_list, user_res_list
