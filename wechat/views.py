@@ -87,7 +87,23 @@ def checker(request):
                         response = wechat.response_text(restaurant_template.response())
 
                     except Restaurant.DoesNotExist:
-                        res_list, user.res_list = name_searcher(message.content)
+                        # res_list, user.res_list = name_searcher(message.content)
+                        ful_name = message.content
+                        res_list = []
+                        user_res_list = ''
+                        if len(ful_name) in range(1, 7):
+                            for i in range(len(ful_name), 0, -1):
+                                for j in range(0, len(ful_name)-i+1):
+                                    part_name = ful_name[j: i+j]
+                                    try:
+                                        restaurants = Restaurant.objects.filter(name__contains=part_name)
+                                        for restaurant in restaurants:
+                                            if not(restaurant.name in res_list):
+                                                res_list.append(restaurant.name)
+                                                user_res_list += ',' + restaurant.id
+                                    except Restaurant.DoesNotExist:
+                                        continue
+                        user.res_list = user_res_list
                         user.save()
 
                         if res_list:
