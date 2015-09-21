@@ -124,11 +124,15 @@ def checker(request):
                         lct_list, user.lct_list = location_searcher(message.content)
                         user.save()
                         if lct_list:
+                            user.lct = message.content
+                            user.save()
                             restaurant = location_recommend(user, 0.7)
                             restaurant_template = RestaurantTemplate(restaurant=restaurant)
                             response = wechat.response_text(restaurant_template.response())
 
                         else:
+                            user.lct = ''
+                            user.save()
                             response = wechat.response_text(LCT_NOT_FOUND_RESPONSE)
 
             elif user.status == 'NAME_CHOOSE':
