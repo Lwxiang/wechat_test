@@ -137,8 +137,8 @@ def checker(request):
                         response = wechat.response_text(NAME_CHOOSE_ERROR_RESPONSE)
 
         elif message.type == 'location' and user.status == 'LCT_INFO':
-            latitude = message.location[0]
-            longitude = message.location[1]
+            latitude = float(message.location[0])
+            longitude = float(message.location[1])
             label = message.label
             response = wechat.response_text(label)
 
