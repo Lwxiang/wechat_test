@@ -8,7 +8,8 @@ from wechat_sdk import WechatBasic
 
 from wechat_test.settings import token
 from models import Restaurant, User
-from lib import RestaurantTemplate, get_access_token, check_user_enter, name_searcher, location_recommend
+from lib import RestaurantTemplate, get_access_token, check_user_enter, name_searcher, location_searcher, \
+    location_recommend
 from lib import CHOOSE_FUNC_RESPONSE, ENTER_NAME_RESPONSE, ENTER_LCT_RESPONSE, ENTER_DISC_RESPONSE, \
     RES_LIST_RESPONSE, RES_NOT_FOUND_RESPONSE, LCT_NOT_FOUND_RESPONSE, NAME_CHOOSE_ERROR_RESPONSE
 
@@ -120,7 +121,7 @@ def checker(request):
                         response = wechat.response_text(restaurant_template.response())
 
                     else:
-                        lct_list, user.lct_list = name_searcher(message.content)
+                        lct_list, user.lct_list = location_searcher(message.content)
                         user.save()
                         if lct_list:
                             restaurant = location_recommend(user, 0.7)

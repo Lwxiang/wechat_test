@@ -90,6 +90,24 @@ def name_searcher(ful_name):
     return res_list, user_res_list
 
 
+def location_searcher(ful_lct):
+    lct_list = []
+    user_lct_list = ''
+    if len(ful_lct) in range(1, 7):
+        for i in range(len(ful_lct), 0, -1):
+            for j in range(0, len(ful_lct)-i+1):
+                part_lct = ful_lct[j: i+j]
+                try:
+                    restaurants = Restaurant.objects.filter(address__contains=part_lct)
+                    for restaurant in restaurants:
+                        if not(restaurant.id in lct_list):
+                            lct_list.append(restaurant.id)
+                            user_lct_list += ',' + str(restaurant.id)
+                except Restaurant.DoesNotExist:
+                    continue
+    return lct_list, user_lct_list
+
+
 def location_recommend(user, rate):
     que = user.lct_list
     while True:
