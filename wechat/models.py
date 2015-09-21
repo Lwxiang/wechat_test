@@ -21,6 +21,9 @@ class Restaurant(models.Model):
     address = models.CharField(u'地址', max_length=2000, blank=True, null=True)
     unique = models.CharField(u'特色', max_length=2000, blank=True, null=True)
     tel = models.CharField(u'电话', max_length=100, blank=True, null=True)
+    longitude = models.FloatField(u'经度', max_length=100)
+    latitude = models.FloatField(u'纬度', max_length=100)
+    recommend = models.BooleanField(u'是否推荐', default=False)
 
 
 class User(models.Model):

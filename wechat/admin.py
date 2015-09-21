@@ -9,7 +9,7 @@ class AccessTokenAdmin(admin.ModelAdmin):
 
 
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'address', 'unique', 'tel')
+    list_display = ('id', 'name', 'address', 'unique', 'tel', 'longitude', 'latitude', 'recommend')
     ordering = ('id',)
 
 
