@@ -1,6 +1,7 @@
 # coding=utf8
 
 import datetime
+from random import choice, randint
 
 import requests
 
@@ -87,6 +88,18 @@ def name_searcher(ful_name):
                 except Restaurant.DoesNotExist:
                     continue
     return res_list, user_res_list
+
+
+def location_recommend(user, rate):
+    que = user.lct_list
+    while True:
+        rid = choice(que)
+        restaurant = Restaurant.objects.get(id=rid)
+        rand_rate = randint(0, 1)
+        if restaurant.recommend and rand_rate < rate:
+            return restaurant
+        if not restaurant.recomend and rand_rate > rate:
+            return restaurant
 
 
 CHOOSE_FUNC_RESPONSE = u'嗨～欢迎使用吃乎～菌菌提醒你——\n' +\
