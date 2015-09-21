@@ -115,7 +115,7 @@ def checker(request):
                     response = wechat.response_text(CHOOSE_FUNC_RESPONSE)
 
                 else:
-                    if user.lct and message.content == 0:
+                    if user.lct and message.content == '0':
                         restaurant = location_recommend(user, 0.7)
                         restaurant_template = RestaurantTemplate(restaurant=restaurant)
                         response = wechat.response_text(restaurant_template.response())
