@@ -120,8 +120,22 @@ def location_recommend(user, rate):
         # rand_rate = randint(0, 1)
         # if restaurant.recommend and rand_rate < rate:
         #     return restaurant
-        # if not restaurant.recomend and rand_rate > rate:
+        # if not restaurant.recommend and rand_rate > rate:
         #     return restaurant
+
+
+def distance_recommend(x, y):
+    user_lct_list = ''
+    restaurants = Restaurant.objects.all()
+    for restaurant in restaurants:
+        distance = get_distance(x, y, restaurant.latitude, restaurant.longitude)
+        if distance<0.01:
+            user_lct_list += ',' + str(restaurant.id)
+    return user_lct_list
+
+
+def get_distance(x, y, a, b):
+    return ((x - a) ** 2 + (y - b) ** 2) ** 0.5
 
 
 CHOOSE_FUNC_RESPONSE = u'嗨～欢迎使用吃乎～菌菌提醒你——\n' +\

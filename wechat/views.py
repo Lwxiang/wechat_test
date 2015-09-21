@@ -9,7 +9,7 @@ from wechat_sdk import WechatBasic
 from wechat_test.settings import token
 from models import Restaurant, User
 from lib import RestaurantTemplate, get_access_token, check_user_enter, name_searcher, location_searcher, \
-    location_recommend
+    location_recommend, distance_recommend
 from lib import CHOOSE_FUNC_RESPONSE, ENTER_NAME_RESPONSE, ENTER_LCT_RESPONSE, ENTER_DISC_RESPONSE, \
     RES_LIST_RESPONSE, RES_NOT_FOUND_RESPONSE, LCT_NOT_FOUND_RESPONSE, NAME_CHOOSE_ERROR_RESPONSE
 
@@ -158,7 +158,21 @@ def checker(request):
         elif message.type == 'location' and user.status == 'LCT_INFO':
             latitude = float(message.location[0])
             longitude = float(message.location[1])
-            label = message.label
-            response = wechat.response_text(label)
+            user.lct_list = distance_recommend(latitude, longitude)
+            user.save()
+            if user.lct_list:
+                user.lct = message.label
+                user.save()
+                restaurant = location_recommend(user, 0.7)
+                restaurant_template = RestaurantTemplate(restaurant=restaurant)
+                response = wechat.response_text(restaurant_template.response())
+
+            else:
+                user.lct = ''
+                user.save()
+                response = wechat.response_text(LCT_NOT_FOUND_RESPONSE)
+
+        else:
+            response = wechat.response_text(ENTER_NAME_RESPONSE)
 
         return HttpResponse(response)

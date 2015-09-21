@@ -15,6 +15,9 @@ class AccessToken(models.Model):
     born_time = models.DateTimeField(auto_now_add=True)
     expires_in = models.IntegerField(u'有效时间')
 
+    def __unicode__(self):
+        return self.token
+
 
 class Restaurant(models.Model):
     name = models.CharField(u'店名', max_length=100, unique=True)
@@ -24,6 +27,9 @@ class Restaurant(models.Model):
     longitude = models.FloatField(u'经度', max_length=100)
     latitude = models.FloatField(u'纬度', max_length=100)
     recommend = models.BooleanField(u'是否推荐', default=False)
+
+    def __unicode__(self):
+        return self.name
 
 
 class User(models.Model):
@@ -36,4 +42,8 @@ class User(models.Model):
     res_list = models.CharField(u'名字备选餐厅列表', max_length=1000, blank=True, null=True)
     lct_list = models.CharField(u'地点备选餐厅列表', max_length=1000, blank=True, null=True)
     lct = models.CharField(u'搜索地点', max_length=100, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.openid
+
 
