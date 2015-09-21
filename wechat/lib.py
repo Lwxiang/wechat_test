@@ -116,11 +116,12 @@ def location_recommend(user, rate):
         except ValueError:
             continue
         restaurant = Restaurant.objects.get(id=rid)
-        rand_rate = randint(0, 1)
-        if restaurant.recommend and rand_rate < rate:
-            return restaurant
-        if not restaurant.recomend and rand_rate > rate:
-            return restaurant
+        return restaurant
+        # rand_rate = randint(0, 1)
+        # if restaurant.recommend and rand_rate < rate:
+        #     return restaurant
+        # if not restaurant.recomend and rand_rate > rate:
+        #     return restaurant
 
 
 CHOOSE_FUNC_RESPONSE = u'嗨～欢迎使用吃乎～菌菌提醒你——\n' +\
