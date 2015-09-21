@@ -33,6 +33,7 @@ class User(models.Model):
     # city = models.CharField(u'所在城市', max_length=100, blank=True, null=True)
     remark = models.CharField(u'备注', max_length=1000, blank=True, null=True)
     status = models.CharField(u'消息状态', max_length=100, default='MASTER')
-    res_list = models.CharField(u'备选餐厅列表', max_length=100, blank=True, null=True)
-
+    res_list = models.CharField(u'名字备选餐厅列表', max_length=1000, blank=True, null=True)
+    lct_list = models.CharField(u'地点备选餐厅列表', max_length=1000, blank=True, null=True)
+    lct = models.CharField(u'搜索地点', max_length=100, blank=True, null=True)
 
