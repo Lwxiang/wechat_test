@@ -143,7 +143,7 @@ CHOOSE_FUNC_RESPONSE = u'嗨～欢迎使用吃乎～菌菌提醒你——\n' +\
                        u'回复"2"或"哪"，查找地点～\n' +\
                        u'回复"3"或"省"，查找代金券~'
 
-ENTER_NAME_RESPONSE = u'回复店名（如“汉堡王”）就能获取店铺信息以及小编们非常（bu）靠谱的特色菜推荐~'
+ENTER_NAME_RESPONSE = u'回复店名（如“汉堡王”）就能获取店铺信息以及小编们非常（bu）靠谱的特色菜推荐~\n回复“退出”回到功能选择～'
 
 ENTER_LCT_RESPONSE = u'回复你将用餐的地点（如“珞狮路”、“群光”、“群光7楼”），或是直接发送定位给菌菌，菌菌会帮你随机推荐一家店铺哦o((*^▽^*))o'
 
@@ -151,8 +151,12 @@ ENTER_DISC_RESPONSE = u'回复店名（如“汉堡王”）就能获取店铺�
 
 RES_LIST_RESPONSE = u'没有找到完全符合的店名（＞д＜）亲爱的你要找的是不是这些店铺'
 
-RES_NOT_FOUND_RESPONSE = u'没有这家店'
+RES_NOT_FOUND_RESPONSE = u'菌菌表示没有这家店啦～\n你可以继续问我～或者回复“退出”回到功能选择～'
 
-LCT_NOT_FOUND_RESPONSE = u'菌菌也找不到这附近的店铺啦o(╥﹏╥)o 要不要试试其他地点呢'
+LCT_NOT_FOUND_RESPONSE = u'菌菌也找不到这附近的店铺啦o(╥﹏╥)o 要不要试试其他地点呢\n你可以继续问我～或者回复“退出”回到功能选择～'
 
 NAME_CHOOSE_ERROR_RESPONSE = u'菌菌还在等你选择上述的店铺哟，回复“退出”回到查找店名～'
+
+ENTER_NUM_RESPONSE = u'\n直接回复数字编号即可获取店铺信息哦_(:зゝ∠)_'
+
+ENTER_ROLL_RESPONSE = u'\n不是你想要的？回复“0”再roll一次吧(*≧▽≦),回复“退出”回到查找地点～'

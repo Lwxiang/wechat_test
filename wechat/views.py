@@ -11,7 +11,8 @@ from models import Restaurant, User
 from lib import RestaurantTemplate, get_access_token, check_user_enter, name_searcher, location_searcher, \
     location_recommend, distance_recommend
 from lib import CHOOSE_FUNC_RESPONSE, ENTER_NAME_RESPONSE, ENTER_LCT_RESPONSE, ENTER_DISC_RESPONSE, \
-    RES_LIST_RESPONSE, RES_NOT_FOUND_RESPONSE, LCT_NOT_FOUND_RESPONSE, NAME_CHOOSE_ERROR_RESPONSE
+    RES_LIST_RESPONSE, RES_NOT_FOUND_RESPONSE, LCT_NOT_FOUND_RESPONSE, NAME_CHOOSE_ERROR_RESPONSE, \
+    ENTER_NUM_RESPONSE, ENTER_ROLL_RESPONSE
 
 
 def get(request):
@@ -103,6 +104,7 @@ def checker(request):
                             back_info = RES_LIST_RESPONSE
                             for k in range(0, len(res_list)):
                                 back_info = "%s\n%d: %s" % (back_info, k+1, res_list[k])
+                            back_info += ENTER_NUM_RESPONSE
                             response = wechat.response_text(back_info)
 
                         else:
@@ -118,7 +120,7 @@ def checker(request):
                     if user.lct and message.content == '0':
                         restaurant = location_recommend(user, 0.7)
                         restaurant_template = RestaurantTemplate(restaurant=restaurant)
-                        response = wechat.response_text(restaurant_template.response())
+                        response = wechat.response_text(restaurant_template.response() + ENTER_ROLL_RESPONSE)
 
                     else:
                         lct_list, user.lct_list = location_searcher(message.content)
@@ -128,7 +130,7 @@ def checker(request):
                             user.save()
                             restaurant = location_recommend(user, 0.7)
                             restaurant_template = RestaurantTemplate(restaurant=restaurant)
-                            response = wechat.response_text(restaurant_template.response())
+                            response = wechat.response_text(restaurant_template.response() + ENTER_ROLL_RESPONSE)
 
                         else:
                             user.lct = ''
@@ -165,7 +167,7 @@ def checker(request):
                 user.save()
                 restaurant = location_recommend(user, 0.7)
                 restaurant_template = RestaurantTemplate(restaurant=restaurant)
-                response = wechat.response_text(restaurant_template.response())
+                response = wechat.response_text(restaurant_template.response() + ENTER_ROLL_RESPONSE)
 
             else:
                 user.lct = ''
