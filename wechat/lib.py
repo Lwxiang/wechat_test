@@ -109,9 +109,12 @@ def location_searcher(ful_lct):
 
 
 def location_recommend(user, rate):
-    que = user.lct_list
+    que = user.lct_list.split(',')
     while True:
-        rid = choice(que)
+        try:
+            rid = int(choice(que))
+        except ValueError:
+            continue
         restaurant = Restaurant.objects.get(id=rid)
         rand_rate = randint(0, 1)
         if restaurant.recommend and rand_rate < rate:

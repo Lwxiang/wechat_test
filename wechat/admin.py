@@ -14,7 +14,7 @@ class RestaurantAdmin(admin.ModelAdmin):
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'openid', 'remark', 'status', 'res_list')
+    list_display = ('id', 'openid', 'remark', 'status', 'res_list', 'lct_list', 'lct')
 
 
 admin.site.register(AccessToken, AccessTokenAdmin)
